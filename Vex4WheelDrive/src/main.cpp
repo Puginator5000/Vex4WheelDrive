@@ -74,19 +74,26 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
+	/**
+	Making a pros::Controller object named master
+	Constructor - pros::Controller(pros::Controller::controller_t)
+	controller type can be E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER
+	*/
+	pros::Controller m_Controller(pros::E_CONTROLLER_MASTER);
+	Drivebase m_db( DrivebaseConstants::kTopLeftPort
+					DrivebaseConstants::kBotLeftPort
+					DrivebaseConstants::kTopRightPort
+					DrivebaseConstants::kBotRightPort);
 
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
 
-		left_mtr = left;
-		right_mtr = right;
+		int power = m_Controller.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
+		int turn  = m_Controller.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+
+		m_db.ArcadeDrive(power, turn);
 
 		pros::delay(20);
 	}
