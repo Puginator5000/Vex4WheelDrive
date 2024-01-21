@@ -90,8 +90,8 @@ void opcontrol() {
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
 
-		int power = m_Controller.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
-		int turn  = m_Controller.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+		int power = m_Controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		int turn  = m_Controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
 		m_db.ArcadeDrive(power, turn);
 
