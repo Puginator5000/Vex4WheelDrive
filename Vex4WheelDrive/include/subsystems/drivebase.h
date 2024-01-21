@@ -13,13 +13,20 @@ class Drivebase {
                 std::int8_t botLeftPort, 
                 std::int8_t botRightPort);
     void ArcadeDrive(std::int32_t xAxisSpeed, std::int32_t zAxisTurn);
-
- private:
-    pros::Motor m_TopLeftMotor;
+    
+    pros::Motor m_TopLeftMotor;   //PROBLEM: pros::Motor has no default constructor
     pros::Motor m_TopRightMotor;
 
     pros::Motor m_BotLeftMotor;
     pros::Motor m_BotRightMotor;
+ private:
+ //by default, if no value is provided for an object, then c++ 
+ //will call the default constuctor for you
+    // pros::Motor m_TopLeftMotor;   //PROBLEM: pros::Motor has no default constructor
+    // pros::Motor m_TopRightMotor;
+
+    // pros::Motor m_BotLeftMotor;
+    // pros::Motor m_BotRightMotor;
 };
 
 

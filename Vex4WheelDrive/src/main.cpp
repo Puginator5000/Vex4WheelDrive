@@ -80,9 +80,9 @@ void opcontrol() {
 	controller type can be E_CONTROLLER_MASTER or E_CONTROLLER_PARTNER
 	*/
 	pros::Controller m_Controller(pros::E_CONTROLLER_MASTER);
-	Drivebase m_db( DrivebaseConstants::kTopLeftPort
-					DrivebaseConstants::kBotLeftPort
-					DrivebaseConstants::kTopRightPort
+	Drivebase m_db( DrivebaseConstants::kTopLeftPort,
+					DrivebaseConstants::kBotLeftPort,
+					DrivebaseConstants::kTopRightPort,
 					DrivebaseConstants::kBotRightPort);
 
 	while (true) {
@@ -94,6 +94,22 @@ void opcontrol() {
 		int turn  = m_Controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
 		m_db.ArcadeDrive(power, turn);
+
+		if (m_Controller.get_digital(pros::E_CONTROLLER_DIGITAL_X)){
+			m_db.m_TopLeftMotor.move(50);
+		}
+
+		if (m_Controller.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
+			m_db.m_TopRightMotor.move(50);
+		}
+
+		if (m_Controller.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
+			m_db.m_BotLeftMotor.move(50);
+		}
+
+		if (m_Controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+			m_db.m_BotRightMotor.move(50);
+		}
 
 		pros::delay(20);
 	}
